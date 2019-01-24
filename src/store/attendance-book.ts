@@ -26,10 +26,10 @@ class AttendanceBookModule extends VuexModule {
     }
 
     @Action({rawError: true})
-    public async fetchAttendanceBook(date: string) {
+    public async fetchAttendanceBookEntry(date: string) {
         this.context.commit('SET_LOADING', true);
         try {
-            const entry = await repository.fetchAttendanceBook(date);
+            const entry = await repository.fetchAttendanceBookEntry(date);
             await new Promise((r) => setTimeout(r, 500)); // チラツキ防止
             this.context.commit('SET_ATTENDANCE_ENTRY', {date, entry});
             this.context.commit('SET_LOADING', false);
@@ -37,6 +37,19 @@ class AttendanceBookModule extends VuexModule {
             this.context.commit('SET_LOADING', false);
         }
     }
+
+    @Action({rawError: true})
+    public async submitAttendanceBookEntry(date: string) {
+        this.context.commit('SET_LOADING', true);
+        const entry = this.attendanceBook[date];
+        if (entry !== undefined) {
+            await repository.postAttendanceBookEntry(date, entry);
+        }
+        await new Promise((r) => setTimeout(r, 500)); // チラツキ防止
+        this.context.commit('SET_LOADING', false);
+    }
+
+    
 }
 
 export const attendanceBookModule = getModule(AttendanceBookModule);

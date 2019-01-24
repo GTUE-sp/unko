@@ -13,7 +13,7 @@
         </el-date-picker>
       </el-col>
       <el-col :span="3">
-        <el-button type="success">送信する</el-button>
+        <el-button type="success" @click="submitAttendanceBookEntry">送信する</el-button>
       </el-col>
     </el-row>
   </el-header>
@@ -73,7 +73,7 @@
       window.addEventListener('resize', this.handleWindowResize.bind(this));
       const entry = attendanceBookModule.attendanceBook[this.date];
       if (entry === undefined) {
-        attendanceBookModule.fetchAttendanceBook(this.date);
+        attendanceBookModule.fetchAttendanceBookEntry(this.date);
       }
     }
 
@@ -85,8 +85,12 @@
     public onDateChange(val: string, oldValue: string) {
       const entry = attendanceBookModule.attendanceBook[this.date];
       if (entry === undefined) {
-        attendanceBookModule.fetchAttendanceBook(this.date);
+        attendanceBookModule.fetchAttendanceBookEntry(this.date);
       }
+    }
+
+    public submitAttendanceBookEntry() {
+      attendanceBookModule.submitAttendanceBookEntry(this.date);
     }
     private handleWindowResize() {
       const dummyContets = document.querySelector('.el-main') as Element;
