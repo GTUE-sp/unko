@@ -4,6 +4,7 @@ export interface Student {
   attendance_number: string;
   id: string;
   status: number[];
+  remarks: string;
 }
 
 export type TimeTable = string[];
