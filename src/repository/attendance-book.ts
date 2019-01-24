@@ -1,4 +1,4 @@
-import { AttendanceBook, AttendanceBookEntry, Student, TimeTable} from '@/models';
+import {  AttendanceBookEntry, Student} from '@/models/attendance-book';
 import axios from 'axios';
 
 type GetStudentsResponse = Array<{student_id: string, attendance_num: string, name: string}>;

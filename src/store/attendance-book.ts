@@ -1,7 +1,7 @@
 
 import {Module, VuexModule, Mutation, Action, getModule} from 'vuex-module-decorators';
 import store from './index';
-import { AttendanceBook, AttendanceBookEntry } from '@/models';
+import { AttendanceBook, AttendanceBookEntry } from '@/models/attendance-book';
 import * as repository from '@/repository/attendance-book';
 import Vue from 'vue';
 
@@ -47,9 +47,7 @@ class AttendanceBookModule extends VuexModule {
         }
         await new Promise((r) => setTimeout(r, 500)); // チラツキ防止
         this.context.commit('SET_LOADING', false);
-    }
-
-    
+    }    
 }
 
 export const attendanceBookModule = getModule(AttendanceBookModule);

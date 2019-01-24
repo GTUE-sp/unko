@@ -55,7 +55,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Student, AttendanceBookEntry } from '@/models';
+  import { Student, AttendanceBookEntry } from '@/models/attendance-book';
   import {attendanceBookModule} from '@/store/attendance-book';
 
   @Component

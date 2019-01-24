@@ -1,24 +1,17 @@
 <template>
 <el-container>
   <el-header>
-    <el-row :gutter="20">
-      <el-col :span="12" :offset="6">
-        <el-date-picker
-          v-model="date"
-          type="date"
-          placeholder="日付を選択してください"
-          format="yyyy/MM/dd"
-          value-format="yyyy-MM-dd"
-          :picker-options="pickerOptions">
-        </el-date-picker>
-      </el-col>
-      <el-col :span="3">
-        <el-button type="success" @click="submitAttendanceBookEntry">送信する</el-button>
-      </el-col>
-    </el-row>
+    <el-date-picker
+      v-model="date"
+      type="date"
+      placeholder="日付を選択してください"
+      format="yyyy/MM/dd"
+      value-format="yyyy-MM-dd"
+      :picker-options="pickerOptions">
+    </el-date-picker>
   </el-header>
   <el-main>
-    <AttendanceBookTable :date="date" :tableHeight="tableHeight"></AttendanceBookTable>
+    <CuttingClassTable :date="date" :tableHeight="tableHeight"></CuttingClassTable>
   </el-main>
 </el-container>
 
@@ -28,8 +21,8 @@
 <script lang="ts">
   import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
   import { Student, AttendanceBookEntry } from '@/models/attendance-book'
-  import AttendanceBookTable from '@/components/AttendanceBookTable.vue';
-  import {attendanceBookModule} from '@/store/attendance-book';
+  import CuttingClassTable from '@/components/CuttingClassTable.vue';
+  import {cuttingClassModule} from '@/store/cutting-class';
 
 
   // tslint:disable-next-line:variable-name
@@ -39,7 +32,7 @@
     format = format.replace(/DD/g, ('0' + date.getDate()).slice(-2));
     return format;
 };
-  @Component({components: {AttendanceBookTable}})
+  @Component({components: {CuttingClassTable}})
   export default class AttendanceBook extends Vue {
     public date = formatDate(new Date(), 'YYYY-MM-DD');
     public tableHeight = window.innerHeight;
@@ -71,9 +64,8 @@
     public mounted() {
       this.handleWindowResize();
       window.addEventListener('resize', this.handleWindowResize.bind(this));
-      const entry = attendanceBookModule.attendanceBook[this.date];
-      if (entry === undefined) {
-        attendanceBookModule.fetchAttendanceBookEntry(this.date);
+      if (cuttingClassModule.students.length === 0) {
+        cuttingClassModule.fetchAttendanceBookEntry("", "");
       }
     }
 
@@ -83,15 +75,12 @@
 
     @Watch('date')
     public onDateChange(val: string, oldValue: string) {
-      const entry = attendanceBookModule.attendanceBook[this.date];
+      /*const entry = attendanceBookModule.attendanceBook[this.date];
       if (entry === undefined) {
         attendanceBookModule.fetchAttendanceBookEntry(this.date);
-      }
+      }*/
     }
-
-    public submitAttendanceBookEntry() {
-      attendanceBookModule.submitAttendanceBookEntry(this.date);
-    }
+    
     private handleWindowResize() {
       const dummyContets = document.querySelector('.el-main') as Element;
       this.tableHeight = dummyContets.clientHeight;

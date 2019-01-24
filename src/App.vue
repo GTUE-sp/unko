@@ -1,12 +1,12 @@
 <template>
-  <AttendanceBook></AttendanceBook>
+  <CuttingClass></CuttingClass>
 </template>
 
 <script lang="ts">
   import { Vue, Component } from 'vue-property-decorator';
   import AttendanceBook from '@/views/AttendanceBook.vue';
-
-  @Component({components: {AttendanceBook}})
+  import CuttingClass from '@/views/CuttingClass.vue';
+  @Component({components: {AttendanceBook, CuttingClass}})
   export default class App extends Vue {
   }
 </script>
