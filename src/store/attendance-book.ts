@@ -25,6 +25,15 @@ class AttendanceBookModule extends VuexModule {
         this.attendanceBook[date].students[studentIndex].status.splice(subjectIndex, 1, status);
     }
 
+    @Mutation
+    public SET_REMARKS(payload: {
+        date: string,
+        studentIndex: number,
+        remarks: string,
+    }) {
+        const {date, studentIndex, remarks } = payload;
+        this.attendanceBook[date].students[studentIndex].remarks = remarks;
+    }
     @Action({rawError: true})
     public async fetchAttendanceBookEntry(date: string) {
         this.context.commit('SET_LOADING', true);

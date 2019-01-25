@@ -89,14 +89,10 @@
       }
     }
 
-    @Watch('tableHeight')
-    public onHeightChange(val: any, oldValue: any) {
-      console.log(val, oldValue);
-    }
-
     public submitAttendanceBookEntry() {
       attendanceBookModule.submitAttendanceBookEntry(this.date);
     }
+
     private handleWindowResize() {
       const dummyContets = document.querySelector('.el-main') as Element;
       this.tableHeight = dummyContets.clientHeight;

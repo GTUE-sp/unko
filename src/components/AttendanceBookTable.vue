@@ -42,7 +42,7 @@
         <template slot-scope="scope">
             <el-input
               placeholder="入力してください（任意）"
-              v-model="scope.row.remarks"
+              @change="(val) => { updateRemarks(scope.row.id, val)}"
               clearable
               autosize>
             </el-input>
@@ -111,6 +111,15 @@
         return entry.timetable;
       }
       return [];
+    }
+
+    public updateRemarks(studentId: string, remarks: string) {
+      const studentIndex = this.studentsIndexMap[studentId];
+      attendanceBookModule.SET_REMARKS({
+        date: this.date,
+        studentIndex,
+        remarks,
+      });
     }
 
   }
