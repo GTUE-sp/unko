@@ -99,8 +99,7 @@
     }
     private handleWindowResize() {
       const dummyContets = document.querySelector('.el-main') as Element;
-      //this.tableHeight = dummyContets.clientHeight;
-     // console.log(this.tableHeight)
+      this.tableHeight = dummyContets.clientHeight;
     }
   }
 </script>
