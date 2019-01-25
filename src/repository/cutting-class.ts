@@ -7,7 +7,7 @@ type GetCuttingClassResponse = number[][];
 export async function fetchCuttingClassCount(start: string, end: string) {
     const formData = new FormData();
     formData.append('start', start);
-    formData.append('end', start);
+    formData.append('end', end);
     //const getStudentsResult = await axios.get('http://localhost:8000/get_students_response.json');
     const getStudentsResult = await axios.get('http://localhost:8000/getStudent.php');
     //const getCuttingClassResult = await axios.get('http://localhost:8000/get_cutting_response.json');

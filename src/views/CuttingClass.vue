@@ -74,6 +74,7 @@
     @Watch('date')
     public onDateChange(val: string[], oldValue: string[]) {
       if (val.length >= 2) {
+        console.log(val)
         cuttingClassModule.fetchAttendanceBookEntry(val[0], val[1]);
       }
     }
