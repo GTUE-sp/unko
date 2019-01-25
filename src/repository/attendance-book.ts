@@ -9,8 +9,8 @@ interface GetTimetableResponse {
 }
 
 export async function fetchAttendanceBookEntry(date: string) {
-    const getStudentsResult = await axios.get('http://192.168.11.2:8000/get_students_response.json');
-    const getTimetableResult = await axios.get('http://192.168.11.2:8000/get_timetable_response.json');
+    const getStudentsResult = await axios.get('http://localhost:8000/get_students_response.json');
+    const getTimetableResult = await axios.get('http://localhost:8000/get_timetable_response.json');
     const timetableResponse: GetTimetableResponse = getTimetableResult.data;
     const studentsResponse: GetStudentsResponse = getStudentsResult.data;
     const dailySubjectCount = timetableResponse.timetable.length;

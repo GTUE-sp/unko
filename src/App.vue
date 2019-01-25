@@ -1,15 +1,8 @@
 <template>
-  <CuttingClass></CuttingClass>
+  <div>
+    <router-view/>
+  </div>
 </template>
-
-<script lang="ts">
-  import { Vue, Component } from 'vue-property-decorator';
-  import AttendanceBook from '@/views/AttendanceBook.vue';
-  import CuttingClass from '@/views/CuttingClass.vue';
-  @Component({components: {AttendanceBook, CuttingClass}})
-  export default class App extends Vue {
-  }
-</script>
 
 <style lang="css">
   body {
@@ -28,5 +21,8 @@
     width: 2em;
     line-height: 1em;
     text-orientation: upright;
+  }
+  .wrapper {
+    height: 100%;
   }
 </style>

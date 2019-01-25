@@ -92,6 +92,7 @@
       return attendanceBookModule.isLoading;
     }
     get students() {
+      console.log(attendanceBookModule.attendanceBook)
       const entry = attendanceBookModule.attendanceBook[this.date];
       if (entry !== undefined) {
         const studentsIndexMap: {[key: string]: number} = {};

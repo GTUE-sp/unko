@@ -6,7 +6,6 @@
     border
     style="width: 100%"
     empty-text="データがありません"
-    @cell-click="clickCell"
     :max-height="tableHeight">
     <el-table-column
       prop="attendance_number"
@@ -49,14 +48,13 @@
 
   @Component
   export default class AttendanceBookTable extends Vue {
-    @Prop(String) public date!: string;
     @Prop(Number) public tableHeight!: number;
-    
+
     get isLoading() {
       return cuttingClassModule.isLoading;
     }
     get students() {
-      return cuttingClassModule.students
+      return cuttingClassModule.students;
     }
   }
 </script>

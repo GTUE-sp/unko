@@ -3,15 +3,16 @@
   <el-header>
     <el-date-picker
       v-model="date"
-      type="date"
-      placeholder="日付を選択してください"
+      type="daterange"
+      start-placeholder="開始日"
+      end-placeholder="終了日"
       format="yyyy/MM/dd"
       value-format="yyyy-MM-dd"
       :picker-options="pickerOptions">
     </el-date-picker>
   </el-header>
   <el-main>
-    <CuttingClassTable :date="date" :tableHeight="tableHeight"></CuttingClassTable>
+    <CuttingClassTable :tableHeight="tableHeight"></CuttingClassTable>
   </el-main>
 </el-container>
 
@@ -34,7 +35,7 @@
 };
   @Component({components: {CuttingClassTable}})
   export default class AttendanceBook extends Vue {
-    public date = formatDate(new Date(), 'YYYY-MM-DD');
+    public date: string[] = [];
     public tableHeight = window.innerHeight;
     public pickerOptions = {
       disabledDate(time: Date) {
@@ -64,9 +65,6 @@
     public mounted() {
       this.handleWindowResize();
       window.addEventListener('resize', this.handleWindowResize.bind(this));
-      if (cuttingClassModule.students.length === 0) {
-        cuttingClassModule.fetchAttendanceBookEntry("", "");
-      }
     }
 
     public beforDestroy() {
@@ -74,11 +72,10 @@
     }
 
     @Watch('date')
-    public onDateChange(val: string, oldValue: string) {
-      /*const entry = attendanceBookModule.attendanceBook[this.date];
-      if (entry === undefined) {
-        attendanceBookModule.fetchAttendanceBookEntry(this.date);
-      }*/
+    public onDateChange(val: string[], oldValue: string[]) {
+      if (val.length >= 2) {
+        cuttingClassModule.fetchAttendanceBookEntry(val[0], val[1]);
+      }
     }
     
     private handleWindowResize() {

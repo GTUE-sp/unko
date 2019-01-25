@@ -5,7 +5,7 @@ import { Student } from '@/models/cutting-class';
 import * as repository from '@/repository/cutting-class';
 import Vue from 'vue';
 
-@Module({dynamic: true, name: 'attendance-book', store})
+@Module({dynamic: true, name: 'cutting-class', store})
 class CuttingClassModule extends VuexModule {
     public readonly isLoading = false;
     public readonly students: Student[] = [];
@@ -21,6 +21,7 @@ class CuttingClassModule extends VuexModule {
 
     @Action({rawError: true})
     public async fetchAttendanceBookEntry(start: string, end: string) {
+        console.log("fetch")
         this.context.commit('SET_LOADING', true);
         try {
             const result = await repository.fetchCuttingClassCount(start, end);
@@ -28,6 +29,7 @@ class CuttingClassModule extends VuexModule {
             this.context.commit('SET_STUDENTS', result);
             this.context.commit('SET_LOADING', false);
         } catch (error) {
+            console.log("error")
             this.context.commit('SET_LOADING', false);
         }
     }
