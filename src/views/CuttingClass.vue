@@ -83,8 +83,12 @@
         console.log(typeof val[1]);
         //ここまでok
         //引数を渡してこのモジュールを呼ぶ際，val[1]がうまく渡せていない(undefined)
-        cuttingClassModule.fetchAttendanceBookEntry(val[0], val[1]);
+        //強行突破
+        var tmp:string = val[0] + " " + val[1];
+        console.log(tmp);
+        cuttingClassModule.fetchAttendanceBookEntry(tmp, val[1]);
         //cuttingClassModule.fetchAttendanceBookEntry()
+        
       }
     }
     

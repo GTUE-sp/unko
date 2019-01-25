@@ -26,7 +26,8 @@ class CuttingClassModule extends VuexModule {
         console.log(end);
         this.context.commit('SET_LOADING', true);
         try {
-            const result = await repository.fetchCuttingClassCount(start, end);
+            var kuso = start.split(" ");
+            const result = await repository.fetchCuttingClassCount(kuso[0], kuso[1]);
             await new Promise((r) => setTimeout(r, 500)); // チラツキ防止
             this.context.commit('SET_STUDENTS', result);
             this.context.commit('SET_LOADING', false);
