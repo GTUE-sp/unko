@@ -18,12 +18,14 @@ export async function fetchAttendanceBookEntry(date: string) {
     //const getCuttingClassResult = await axios.get('http://localhost:8000/get_cutting_response.json');
     const getStudentsResult = await axios.get('http://localhost:8000/getStudent.php');
     const getTimetableResult = await axios.get('http://localhost:8000/getTimetable.php');
-
+    console.log("attendance - calc.php.");
     const getCuttingClassResult = await axios.post('http://localhost:8000/calc.php', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
     });
+    
+
     const timetableResponse: GetTimetableResponse = getTimetableResult.data;
     timetableResponse.timetable.push('');
     const studentsResponse: GetStudentsResponse = getStudentsResult.data;

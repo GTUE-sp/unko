@@ -21,6 +21,9 @@ class CuttingClassModule extends VuexModule {
 
     @Action({rawError: true})
     public async fetchAttendanceBookEntry(start: string, end: string) {
+        console.log("store.");
+        console.log(start);
+        console.log(end);
         this.context.commit('SET_LOADING', true);
         try {
             const result = await repository.fetchCuttingClassCount(start, end);

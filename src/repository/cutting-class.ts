@@ -5,19 +5,29 @@ type GetStudentsResponse = Array<{student_id: string, attendance_num: string, na
 type GetCuttingClassResponse = number[][];
 
 export async function fetchCuttingClassCount(start: string, end: string) {
+    console.log("repository.");
+    console.log(start);
+    console.log(end);
     const formData = new FormData();
     formData.append('start', start);
     formData.append('end', end);
     //const getStudentsResult = await axios.get('http://localhost:8000/get_students_response.json');
     const getStudentsResult = await axios.get('http://localhost:8000/getStudent.php');
     //const getCuttingClassResult = await axios.get('http://localhost:8000/get_cutting_response.json');
+    
     const getCuttingClassResult = await axios.post('http://localhost:8000/calc.php', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
     });
+    
+    //const url = 'http://localhost:8000/calc.php?start=' + start + '&end=' + end;
+    //const getCuttingClassResult = await axios.get('http://localhost:8000/calc.php');
+    //const getCuttingClassResult = await axios.get(url);
     const studentsResponse: GetStudentsResponse = getStudentsResult.data;
     const cuttingClassResponse: GetCuttingClassResponse = getCuttingClassResult.data;
+    console.log("cuttingclassresponse");
+    console.log(cuttingClassResponse);
     const students: Student[] = studentsResponse.map((x, index) => {
         return {
             name: x.name,
@@ -25,7 +35,7 @@ export async function fetchCuttingClassCount(start: string, end: string) {
             id: x.student_id,
             cutting_class_count: cuttingClassResponse[index][12],
             absent_class_count: cuttingClassResponse[index][10],
-            late_class_count: cuttingClassResponse[index][11],
+            late_class_count: cuttingClassResponse[index][11]
         }
     })
     return students;

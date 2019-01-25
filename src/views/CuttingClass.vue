@@ -73,9 +73,18 @@
 
     @Watch('date')
     public onDateChange(val: string[], oldValue: string[]) {
+      console.log("vue");
+      console.log(val);
+      console.log(typeof val);
       if (val.length >= 2) {
-        console.log(val)
+        console.log(val[0]);
+        console.log(typeof val[0]);
+        console.log(val[1]);
+        console.log(typeof val[1]);
+        //ここまでok
+        //引数を渡してこのモジュールを呼ぶ際，val[1]がうまく渡せていない(undefined)
         cuttingClassModule.fetchAttendanceBookEntry(val[0], val[1]);
+        //cuttingClassModule.fetchAttendanceBookEntry()
       }
     }
     
