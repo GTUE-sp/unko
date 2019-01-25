@@ -5,8 +5,16 @@ type GetStudentsResponse = Array<{student_id: string, attendance_num: string, na
 type GetCuttingClassResponse = number[][];
 
 export async function fetchCuttingClassCount(start: string, end: string) {
+    const formData = new FormData();
+    formData.append('start', start);
+    formData.append('end', start);
     const getStudentsResult = await axios.get('http://localhost:8000/get_students_response.json');
-    const getCuttingClassResult = await axios.get('http://localhost:8000/get_cutting_response.json');
+    //const getCuttingClassResult = await axios.get('http://localhost:8000/get_cutting_response.json');
+    const getCuttingClassResult = await axios.post('http://localhost:8000/get_cutting_response.json', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
     const studentsResponse: GetStudentsResponse = getStudentsResult.data;
     const cuttingClassResponse: GetCuttingClassResponse = getCuttingClassResult.data;
     const students: Student[] = studentsResponse.map((x, index) => {
