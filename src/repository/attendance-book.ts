@@ -13,10 +13,13 @@ export async function fetchAttendanceBookEntry(date: string) {
     const formData = new FormData();
     formData.append('start', date);
     formData.append('end', date);
-    const getStudentsResult = await axios.get('http://localhost:8000/get_students_response.json');
-    const getTimetableResult = await axios.get('http://localhost:8000/get_timetable_response.json');
+    //const getStudentsResult = await axios.get('http://localhost:8000/get_students_response.json');
+    //const getTimetableResult = await axios.get('http://localhost:8000/get_timetable_response.json');
     //const getCuttingClassResult = await axios.get('http://localhost:8000/get_cutting_response.json');
-    const getCuttingClassResult = await axios.post('http://localhost:8000/get_cutting_response.json', formData, {
+    const getStudentsResult = await axios.get('http://localhost:8000/getStudent.php');
+    const getTimetableResult = await axios.get('http://localhost:8000/getTimetable.php');
+
+    const getCuttingClassResult = await axios.post('http://localhost:8000/calc.php', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -30,7 +33,7 @@ export async function fetchAttendanceBookEntry(date: string) {
             name: x.name,
             attendance_number: x.attendance_num,
             id: x.student_id,
-            status: cuttingClassResponse[index].slice(1, 10),
+            status: cuttingClassResponse[index].slice(1, 11),
             remarks: '',
         };
     });
@@ -43,6 +46,7 @@ export async function fetchAttendanceBookEntry(date: string) {
 }
 // TODO:
 export async function postAttendanceBookEntry(date: string, entry: AttendanceBookEntry) {
+    console.log(entry.students);
     for (const student of entry.students) {
         const formData = new FormData();
         formData.append('student_id', student.id);
@@ -51,10 +55,11 @@ export async function postAttendanceBookEntry(date: string, entry: AttendanceBoo
             formData.append(`class${index}`, status.toString());
         });
         formData.append('remarks', student.remarks);
-        /*await axios.post('', formData, {
+        await axios.post('http://localhost:8000/insert.php', formData, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                //'Access-Control-Allow-Origin': '*'
             },
-        });*/
+        });
     }
 }
